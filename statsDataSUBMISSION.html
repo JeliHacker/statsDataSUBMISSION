@@ -1,0 +1,98 @@
+<html>
+    <head>
+        <title>StatsData LabData</title>
+ <link rel = "stylesheet"
+   type = "text/css"
+   href = "default.css" />
+    </head>
+    <body>   
+        <h1 style="margin-top: 25px">You're probably wondering how I did it.<br><br>
+        I'll tell you.</h1>
+        
+        <h2 class="giveBorder">A1</h2>  
+        
+        
+        
+        
+        
+        
+<textarea readonly rows="16" cols="80"><script>
+ var getGrade = function(quiz)
+ {
+    return quiz.grade;
+ }
+var answer=getGrade; 
+report("#A1",answer)    
+</script>
+        </textarea>
+        
+        
+        
+        
+        
+        <h4>First I was supposed to create a function to get the grade from a quiz object. To do this I defined a variable, <span class="code">getGrade</span>, that holds the function. The function takes the parameter of quiz. It then returns the grade that corresponds to what quiz is inputted.</h4>
+        
+
+        
+        
+        
+        
+        <h2 class="giveBorder">A2</h2>
+        
+        
+        
+<textarea readonly rows="16" cols="80"><script>
+var answer = d3.mean(classroom[0].quizes.map(getGrade));
+report("#A2",answer)    
+</script>
+</textarea>
+        
+        
+        
+        
+        
+        <h4>Next I had to find the mean of the quiz grades for the first penguin. I access the d3 libraries to find the mean with <span class="code">d3.mean</span>, and then I accessed the classroom array, picked a penguin (0) and selected the array <span class="code">quizes</span>. This next step is important. I used <span class="code">.map</span> to, in the words of <a href="https://www.w3schools.com/jsref/jsref_map.asp">W3schools.com</a>, <q>create a new array with the results of calling a function for every array element.</q> We use our <span class="code">getGrade</span> function with map and we get the mean of the quiz grades for the first penguin.</h4>
+        
+        
+        
+        
+        <h2 class="giveBorder">A3</h2>
+        
+        <textarea readonly rows="16" cols="80"><script>
+    var getPenguinGrade = function(penguin){
+        return d3.mean(penguin.quizes.map(getGrade));
+    }
+var answer= getPenguinGrade(classroom[0]);
+report("#A3",answer);    
+</script>
+        </textarea>
+        
+        <h4>I put the code that we used in the previous task into a function <span class="code">getPenguinGrade</span>. I can call this whenever I want, and I went ahead and tried it out.</h4>
+        
+        
+        
+        <h2 class="giveBorder">A4</h2>
+        
+        <textarea readonly rows="16" cols="80"><script>
+var answer=classroom.map(getPenguinGrade);
+var answer4=classroom.map(getPenguinGrade);
+report("#A4",answer)    
+</script>
+        </textarea>
+        
+        <h4>To "return an array of the mean quiz score of each penguins", I access the whole classroom array. We use our <span class="code">getPenguinGrade</span> function with <span class="code">map</span> so that we have a new list of numbers that show the mean of the quiz grades for each penguin. We store this in a separate variable for later use...</h4>
+        
+        <h2 class="giveBorder">A5</h2>
+        
+        
+        <textarea readonly rows="16" cols="80"><script>
+var allQuizGrades = d3.mean(answer4);
+var answer=allQuizGrades;
+report("#A5",answer)    
+</script>
+        </textarea>
+        
+        
+        <h4>To find the mean of all the quiz scores in the class, I used the list of mean quiz scores for each penguin that I created in A4. We simply use <span class="code">d3.mean</span> to find the mean of that list of values, and we have our answer. Boo-yah.</h4>
+    </body>
+</html>
