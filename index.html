@@ -6,8 +6,9 @@
    href = "default.css" />
     </head>
     <body>   
-        <h1 style="margin-top: 25px">You're probably wondering how I did it.<br><br>
-        I'll tell you.</h1>
+        <h1 style="margin-top: 25px">You're probably wondering how we did it.<br><br>
+        We'll tell you.</h1>
+        <h2 class="note">Now updated with explanations for B1 - D2!</h2>
         
         <h2 class="giveBorder">A1</h2>  
         
@@ -56,7 +57,10 @@ report("#A2",answer)
         
         
         
-        <h2 class="giveBorder">A3</h2>
+        
+        
+        
+        <h2 class="giveBorder" id="A3">A3</h2>
         
         <textarea readonly rows="16" cols="80"><script>
     var getPenguinGrade = function(penguin){
@@ -68,6 +72,15 @@ report("#A3",answer);
         </textarea>
         
         <h4>I put the code that we used in the previous task into a function <span class="code">getPenguinGrade</span>. I can call this whenever I want, and I went ahead and tried it out.</h4>
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -94,5 +107,163 @@ report("#A5",answer)
         
         
         <h4>To find the mean of all the quiz scores in the class, I used the list of mean quiz scores for each penguin that I created in A4. We simply use <span class="code">d3.mean</span> to find the mean of that list of values, and we have our answer. Boo-yah.</h4>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <h2 class="giveBorder">B1</h2>
+        
+        
+        
+        
+        <h3 class = "instructions">Write a function that takes the classroom data and returns an array of objects.  Each object will have two attributes: a picture and the final grade in the class.</h3>
+        
+        
+        
+        
+        <textarea readonly rows="50" cols="80"><script>
+    var getFinalInfo = function(penguin){
+        var finalInfo = []; // create empty array and call it finalInfo
+        var finalPicture = {};
+        var finalGrade = {}; // finalGrade object
+        var finalGradeValue = 0;
+        finalPicture.picture = penguin.picture; //store picture in object
+        var info ={};
+        info.picture = penguin.picture;
+        info.meanQuiz = getPenguinGrade(penguin);
+        info.meanTests = getPenguinGradeTests(penguin);
+        info.meanHW = getPenguinGradeHomework(penguin);
+        info.finalGrade = getPenguinfinalGrade(penguin);
+        
+        var gradeOnFinal = info.finalGrade * .35;
+        var gradeOnTests = info.meanTests * .30;
+        var gradeOnQuiz = info.meanQuiz * .20;
+        var gradeOnHomework = info.meanHW * .15;
+        var finalGradeNum = gradeOnFinal + gradeOnTests + gradeOnQuiz + gradeOnHomework;
+        finalGrade.final = finalGradeNum; 
+        finalInfo.push(finalPicture); // put picture object into array
+        finalInfo.push(finalGrade);//put finalGrade into array
+        return finalInfo;
+    };
+    
+    
+    //EXAMPLE FOR TESTING PURPOSES
+    /*var getExampleInfo = function(student){
+        var exampleFinal = 100;
+        var exampleTests = 80;
+        var exampleQuiz = 20;
+        var exampleHomework = 50;
+        var calcFinal = exampleFinal * .35; //35
+        var calcTests = exampleTests * .30; //24
+        var calcQuiz = exampleQuiz * .20; // 4
+        var calcHomework = exampleHomework * .15; // 7.5
+        var grade = {};
+        grade.finalGradedammit = calcFinal + calcTests + calcQuiz + calcHomework;
+        return grade;
+    };*/
+    //EXAMPLE FOR TESTING PURPOSES
+    //IT WORKED!!
+    
+    
+    
+    var answer = getFinalInfo(classroom[0]);
+    //var answer = getExampleInfo(1);
+    report("#B1",answer) 
+</script></textarea>
+        
+        
+        <h4>Our function <span class="code">getFinalInfo</span> is where all the "magic" happens. We create one array and two objects, per the instructions. I created a temporary object, <span class="code">info</span>, to hold values. We fill it with values for the grade the penguin got on each category using functions defined in A10. These functions work similarly to <span class="code">getPenguinGrade</span> (see <a href="#A3">A3 explanation</a>). Below we make new variables to hold the weighted values of each category. Their weight is accounted for by multiplying the values we stored in the info object by their respective weight. Finally, we calculate and store a final grade value and put it in its respective object, <span class="code">finalGrade</span>. Commented out is code I used as a test to make sure that the value I got was correct. </h4>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <h2 class="giveBorder">C1</h2>
+        
+        <h3 class="instructions">Write a function to find the average grade of all students on the first quiz.</h3>
+        
+        <textarea readonly rows="16" cols="80"><script>
+    
+    var getClassAverage = function(penguin){
+        return penguin.quizes[0].grade;
+    };
+var classGrade= classroom.map(getClassAverage);
+    var answer = d3.mean(classGrade)
+report("#C1",answer)    
+</script></textarea> 
+        
+        
+        <h4>The function <span class="code">getClassAverage</span> will <span class="code">return</span> a penguin's grade on the first quiz. <span class="code">classGrade</span> uses <span class="code">map</span> along with <span class="code">getClassAverage</span> to get a list of all the penguins' grades on the first quiz. Finally, <span class="code">d3.mean</span> takes the average and stores it and we store the value as the answer.</h4>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <h2 class="giveBorder">D1</h2>
+        
+        
+        <h3 class="instructions">Write a function that takes a number, day, and returns the average grade of all students on that day's quiz.</h3>
+        
+        
+        <textarea readonly rows="16" cols="80"><script>
+
+var quizOnDay = function(day) {
+    var getDay = function(penguin){
+        return penguin.quizes[day].grade;
+    };
+    
+    var dayQuiz = classroom.map(getDay);
+
+    return d3.mean(dayQuiz);
+};
+var answer= quizOnDay(0);
+    
+report("#D1",answer)    
+</script></textarea>
+        
+        <h4>The tricky part about this task is that it requires a function defined within a function. The father function, <span class="code">quizOnDay</span>, will end up returning our final answer in the form of an average grade for all students. The function within, <span class="code">getDay</span>, helps by retrieving the grade for a particular penguin on a quiz. <span class="note">Note that the function <span class="code">getDay</span> is poorly named, as it more accurately retrieves quiz grades.</span> <span class="code">var dayQuiz</span> maps the whole classroom using the <span class="code">getDay</span> function, and <span class="code">quizOnDay</span> returns the average of all the quiz grades. Since we put 0 in as our parameter, the answer will be the average grade of all students on the first quiz.</h4>
+        
+        
+        
+        <h2 class="giveBorder">D2</h2>
+        
+        <h3 class="instructions">Write a function that returns an array of the class averages the students earn each day on thier quiz.</h3>
+        
+        <textarea readonly rows="16" cols="80"><script>
+    
+    var list = d3.range(0, 38);
+var answer = list.map(quizOnDay);
+    
+report("#D2",answer);    
+</script></textarea>
+        
+        <h4>Luckily we got a hint later in the instructions that <span class="code">d3.range</span> may be helpful. Sure enough, it was. <span class="code">d3.range</span>, in the words of Scott Murray, <q>is a very simply way to quickly generate an array of sequential numbers.</q> We set the range from 0 to 38 because that's how many quizes the penguins took. We <span class="code">map</span> using our new range tool and report the answer.</h4>
     </body>
 </html>
