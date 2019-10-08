@@ -26,5 +26,28 @@ h4{
 
 .code{
     font-family: Monaco;
-    background-color: #ffffFF;
+    background-color: #ffffff;
+}
+
+.important{
+    color: red;
+}
+
+.note{
+    color: greenyellow;
+}
+
+.note:before{
+    content: "*";
+}
+
+.instructions{
+    font-family: Monaco;
+    background-color: beige;
+    color: black;
+}
+
+q{
+    font-family: Times New Roman;
+    background-color: rgba(192, 192, 192, 0.6);
 }
